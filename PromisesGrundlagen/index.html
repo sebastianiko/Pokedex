@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="script.js"></script>
+        <script>
+            let promError = false;
+
+            function getPromises() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        console.log("1");
+                        if (promError) {
+                            reject("Fehler");
+                        } else {
+                            resolve("Funktioniert");
+                        }
+                    }, 100);
+                });
+            }
+
+            function getPromises2() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        console.log("2");
+                        if (promError) {
+                            reject("Fehler");
+                        } else {
+                            resolve("Funktioniert");
+                        }
+                    }, 100);
+                });
+            }
+
+            function getPromises3() {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        console.log("3");
+                        if (promError) {
+                            reject("Fehlgeschlagen");
+                        } else {
+                            resolve("Funktioniert");
+                        }
+                    }, 100);
+                });
+            }
+
+            async function usePromise() {
+                try {
+                    await getPromises();
+                    await getPromises2();
+                    await getPromises3();
+                } catch (error) {
+                    console.error(error);
+                }
+                console.log("Ende");
+            }
+        </script>
+    </head>
+    <body onload="usePromise()">
+        <h1>Promises Test</h1>
+    </body>
+</html>

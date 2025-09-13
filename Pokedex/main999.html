@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pokedex</title>
+        <link rel="icon" href="img/Pokeicon.svg.png" />
+        <script src="main999.js"></script>
+        <link rel="stylesheet" href="main999.css" />
+    </head>
+    <body onload="init()">
+        <div class="responsive1920px">
+            <header>
+                <img src="img/icons8-pokéball-96.png" alt="Pokedex" id="pokedex-logo" />
+                <div>
+                    <div class="searchBox">
+                        <input id="pokemonName" placeholder="Pokemon Name..." type="text" onkeydown="checkAndSearchPokemon()" minlength="3" required />
+                        <button id="search" onclick="checkAndSearchPokemon()">🔎</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="pokemonContainer" id="pokemon-Container"></div>
+            <div id="popup-container" onclick="closePokemonDetailsContainer()"></div>
+            <div id="button-container"><button onclick="loadMorePokemon()" id="load-more-pokemon">Load more Pokemon</button></div>
+        </div>
+    </body>
+</html>
