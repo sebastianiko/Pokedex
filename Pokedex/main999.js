@@ -146,9 +146,21 @@ function clearSearchInput() {
 }
 
 async function loadMorePokemon() {
+    showLoadingSpinner(); // Show spinner before loading
     pokemonAmount += 20;
     currentPokemons += 20;
     await savePokemon();
+    hideLoadingSpinner(); // Hide spinner after loading is complete
+}
+
+function showLoadingSpinner() {
+    document.getElementById('loading-spinner').classList.remove('d-none');
+    document.getElementById('load-more-pokemon').classList.add('d-none');
+}
+
+function hideLoadingSpinner() {
+    document.getElementById('loading-spinner').classList.add('d-none');
+    document.getElementById('load-more-pokemon').classList.remove('d-none');
 }
 
 function capitalizeFirstLetter(string) {
