@@ -154,13 +154,13 @@ async function loadMorePokemon() {
 }
 
 function showLoadingSpinner() {
-    document.getElementById('loading-spinner').classList.remove('d-none');
-    document.getElementById('load-more-pokemon').classList.add('d-none');
+    document.getElementById("loading-spinner").classList.remove("d-none");
+    document.getElementById("load-more-pokemon").classList.add("d-none");
 }
 
 function hideLoadingSpinner() {
-    document.getElementById('loading-spinner').classList.add('d-none');
-    document.getElementById('load-more-pokemon').classList.remove('d-none');
+    document.getElementById("loading-spinner").classList.add("d-none");
+    document.getElementById("load-more-pokemon").classList.remove("d-none");
 }
 
 function capitalizeFirstLetter(string) {
@@ -315,9 +315,9 @@ function pokemonDetailsHTML(i, id, name, types, type, image, weight, height) {
             </h3>
             <div class="pokemon-type-color" id="pokemon-type-color-${types}">
                 <div id="img-container">
-                    <img src="/Pokedex/img/left-sign.svg" alt="left-sign" class="arrows" onclick="previousPokemon(event, ${i})">
+                    <img src="./img/left-sign.svg" alt="left-sign" class="arrows" onclick="previousPokemon(event, ${i})">
                     <img class="pokemon-img" src="${image}" alt="${name}">
-                    <img src="/Pokedex/img/right-sign.svg" alt="right-sign" class="arrows" onclick="nextPokemon(event, ${i})">
+                    <img src="./img/right-sign.svg" alt="right-sign" class="arrows" onclick="nextPokemon(event, ${i})">
                 </div>
                 <div id="pokemon-detail">
                     <div>${weight}kg</div>
