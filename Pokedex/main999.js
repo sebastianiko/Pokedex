@@ -204,6 +204,12 @@ async function showPokemonDetails(i) {
     let types = responseAsJSON.types[0].type.name;
     let capitalizedPokemonName = capitalizeFirstLetter(responseAsJSON.name);
     let capitalizedPokemonType = capitalizeFirstLetter(responseAsJSON.types[0].type.name);
+
+    const stats = {};
+    responseAsJSON.stats.forEach((stat) => {
+        stats[stat.stat.name.replace("-", "")] = stat.base_stat;
+    });
+
     document.getElementById("popup-container").style.display = "flex";
     let pokemonHTML = pokemonDetailsHTML(
         i,
@@ -213,7 +219,8 @@ async function showPokemonDetails(i) {
         capitalizedPokemonType,
         responseAsJSON.sprites.other["official-artwork"].front_default,
         responseAsJSON.weight,
-        responseAsJSON.height
+        responseAsJSON.height,
+        stats
     );
     document.getElementById("popup-container").innerHTML = pokemonHTML;
     removeLoadMorePokemonButton();
@@ -251,6 +258,20 @@ function previousPokemon(event, i) {
 
 function doNotClosePokemonCard(event) {
     event.stopPropagation();
+}
+
+function showDetailsPage(event, pokemonId) {
+    event.stopPropagation();
+    const page1 = document.getElementById(`pokemon-detail-${pokemonId}`);
+    const page2 = document.getElementById(`stats-container-${pokemonId}`);
+    const isPage1Visible = page1.style.display !== "none";
+    if (isPage1Visible) {
+        page1.style.display = "none";
+        page2.style.display = "flex";
+    } else {
+        page1.style.display = "flex";
+        page2.style.display = "none";
+    }
 }
 
 //HTML
@@ -304,7 +325,7 @@ function displayPokemonHTML() {
     </div>`;
 }
 
-function pokemonDetailsHTML(i, id, name, types, type, image, weight, height) {
+function pokemonDetailsHTML(i, id, name, types, type, image, weight, height, stats) {
     return /*html*/ `
         <div class="pokemonBox" id="pokemon-Box-${i}" onclick="doNotClosePokemonCard(event)">
             <h3>
@@ -319,9 +340,25 @@ function pokemonDetailsHTML(i, id, name, types, type, image, weight, height) {
                     <img class="pokemon-img" src="${image}" alt="${name}">
                     <img src="./img/right-sign.svg" alt="right-sign" class="arrows" onclick="nextPokemon(event, ${i})">
                 </div>
-                <div id="pokemon-detail">
-                    <div>${weight}kg</div>
-                    <div>Height: ${height}0 cm</div>
+                <div id="pokemon-detail-wrapper">
+                    <img src="./img/left-arrow.svg" class="details-arrows" onclick="showDetailsPage(event, ${i})">
+                    <div id="pokemon-detail-${i}" class="pokemon-detail-page">
+                        <div>${weight}kg</div>
+                        <div>Height: ${height}0 cm</div>
+                    </div>
+                    <div id="stats-container-${i}" class="pokemon-detail-page" style="display: none; align-items: center;">
+                        <ul id="stats-list">
+                            <li>HP: ${stats.hp}</li>
+                            <li>Attack: ${stats.attack}</li>
+                            <li>Defense: ${stats.defense}</li>
+                        </ul>
+                        <ul id="stats-list">
+                            <li>Atk: ${stats.specialattack}</li>
+                            <li>Def: ${stats.specialdefense}</li>
+                            <li>Speed: ${stats.speed}</li>
+                        </ul>
+                    </div>
+                    <img src="./img/right-arrow.svg" class="details-arrows" onclick="showDetailsPage(event, ${i})">
                 </div>
             </div>
         </div>`;

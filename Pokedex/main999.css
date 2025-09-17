@@ -254,7 +254,7 @@ h1 {
     justify-content: center;
 }
 
-#pokemon-detail {
+#pokemon-detail-wrapper {
     color: rgb(5, 23, 30);
     display: flex;
     justify-content: space-around;
@@ -264,6 +264,8 @@ h1 {
     border-top: 2px solid white;
     padding: 8px;
     font-weight: bold;
+    min-height: 70px;
+    max-height: 70px;
 }
 
 ::-webkit-scrollbar {
@@ -366,4 +368,32 @@ h1 {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.pokemon-detail-page {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#stats-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    font-size: large;
+}
+
+.details-arrows {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.details-arrows:hover {
+    opacity: 1;
 }
