@@ -97,20 +97,7 @@ async function searchPokemon() {
         }
 
         let responseAsJSON = await response.json();
-        let capitalizedPokemonName = capitalizeFirstLetter(responseAsJSON.name);
-        let types = responseAsJSON.types[0].type.name;
-        let capitalizedPokemonType = capitalizeFirstLetter(responseAsJSON.types[0].type.name);
-        document.getElementById("popup-container").style.display = "flex";
-        let searchPokemonHTML = popupHTML(
-            responseAsJSON.id,
-            capitalizedPokemonName,
-            types,
-            capitalizedPokemonType,
-            responseAsJSON.sprites.other["official-artwork"].front_default,
-            responseAsJSON.weight,
-            responseAsJSON.height
-        );
-        document.getElementById("popup-container").innerHTML = searchPokemonHTML;
+        showPokemonDetails(responseAsJSON.id);
         clearSearchInput();
     } catch (error) {
         document.getElementById("popup-container").style.display = "none";
@@ -284,45 +271,9 @@ function loadPokemonHTML(id, types, capitalizedName, image, capitalizedType) {
         </div>`;
 }
 
-function popupHTML(id, name, types, type, img, weight, height) {
-    return /*html*/ `
-        <div class="pokemonBox" onclick="doNotClosePokemonCard(event)">
-            <h3>
-                <div id="pokemon-type-font-color-${types}">${id}#</div>
-                <div id="pokemon-type-font-color-${types}">${name}</div>
-                <div id="pokemon-type-font-color-${types}">${type}</div>
-                <div onclick="closePokemonDetails()" class="closeCard" id="close-card">X</div>
-            </h3>
-            <div class="pokemon-type-color" id="pokemon-type-color-${types}">
-                <div id="img-container">
-                    <img class="pokemon-img" src="${img}" alt="${name}">
-                </div>
-                <div id="pokemon-detail">
-                    <div>${weight}kg</div>
-                    <div>Height: ${height}0 cm</div>
-                </div>
-            </div>
-        </div>`;
-}
-
 function generateErrorHTML() {
     return /*html*/ `
         <div class="pokemon-fail-Box">404 - Pokemon konnte nicht gefunden werden</div>`;
-}
-
-function displayPokemonHTML() {
-    document.getElementById("pokemon-Container").innerHTML = /*html*/ `
-    <div class="pokemonBox">
-        <h3>
-            <div id="pokemon-type-font-color-${types}">${responseAsJSON.id}#</div>
-            <div id="pokemon-type-font-color-${types}">${capitalizedPokemonName}</div>
-            <div id="pokemon-type-font-color-${types}">
-            <div>${capitalizedPokemonType}</div>
-            <div onclick="hidePokemon()" class="closeCard" id="close-card">X</div>
-    </div>
-        </h3>
-            <div class="pokemon-type-color" id="pokemon-type-color-${types}"><img class="pokemon-img" src="${responseAsJSON.sprites.other["official-artwork"].front_default}" alt="${responseAsJSON.name}"></div>
-    </div>`;
 }
 
 function pokemonDetailsHTML(i, id, name, types, type, image, weight, height, stats) {
@@ -351,11 +302,6 @@ function pokemonDetailsHTML(i, id, name, types, type, image, weight, height, sta
                             <li>HP: ${stats.hp}</li>
                             <li>Attack: ${stats.attack}</li>
                             <li>Defense: ${stats.defense}</li>
-                        </ul>
-                        <ul id="stats-list">
-                            <li>Atk: ${stats.specialattack}</li>
-                            <li>Def: ${stats.specialdefense}</li>
-                            <li>Speed: ${stats.speed}</li>
                         </ul>
                     </div>
                     <img src="./img/right-arrow.svg" class="details-arrows" onclick="showDetailsPage(event, ${i})">
